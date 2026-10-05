@@ -1,0 +1,48 @@
+<div class="container">
+
+  <div class="d-flex justify-content-between text-bg-dark p-3 rounded">
+    <h1>Panier d'achats</h1>
+    <p>{{totalItems()}} article(s)</p>
+  </div>
+
+
+  <ul class="list-group">
+    @for (item of items() ; track item.id) {
+
+      <li class="list-group-item d-flex justify-content-between">
+        <div>
+          <img [src]="item.photo" width="50px" height="50px">
+          {{item.name}}
+          ID : #{{item.id}}
+          <span class="badge text-bg-warning">Prix : {{ item.price }} DT</span>
+        </div>
+        
+        <div class="input-group mb-3">
+          <button class="btn btn-outline-secondary" (click)="updateQuantity(item, -1)">-</button>
+          <input type="text" class="input-group-text" [value]="item.quantity" readonly>
+          <button class="btn btn-outline-secondary" (click)="updateQuantity(item, 1)">+</button>
+        </div>
+      </li>
+    }
+  </ul>
+
+
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-success" (click)="addItem()">+ Ajouter une bouteille d'eau (0.7 DT)</button>
+    <div>
+      <input type="text" placeholder="Nom de l'article à supprimer" #itemName>
+      <button class="btn btn-danger" (click)="deleteItem(itemName.value)">Supprimer</button>
+    </div>
+  </div>
+
+
+  <div class="t ext-bg-warning p-3 rounded">
+
+    <label>Prix Total des articles : {{ totalPrice() }} DT</label>
+    <br>
+    <label>Remise : {{ remise() }} DT</label>
+    <br>
+    <strong>Prix Final : {{ finalPrice() }} DT</strong>
+  </div>
+  
+</div>
